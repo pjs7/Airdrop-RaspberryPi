@@ -2,17 +2,20 @@
 
 This project is a fork of the [`/seemoo-lab/nexmon`](https://github.com/seemoo-lab/nexmon) project with an updated instruction set for the Raspberry Pi.
 
-These instructions have been tested and work with the `bcm43436b0` WiFi chipset found on the **Raspberry Pi Zero 2 W**. 
+**UPDATE:**
 
-This is possible with [`/seemoo-lab/opendrop`](https://github.com/seemoo-lab/opendrop), [`/seemoo-lab/owl`](https://github.com/seemoo-lab/owl) and the [`/seemoo-lab/nexmon`](https://github.com/seemoo-lab/nexmon) patches to enable monitor mode on the WiFi chip, which is required for Airdrop. For a different Raspberry Pi model, check the supported devices section in the README of the [`/seemoo-lab/nexmon`](https://github.com/seemoo-lab/nexmon) repository.
+MacOS Sonoma 14.4 no longer supports Opendrop with the following [error](https://github.com/seemoo-lab/opendrop/issues/115). You can still see discovered devices in OWL (with randomized addresses).
 
-![Airdrop-GIF](assets/GIF.gif)
+~~These instructions have been tested and work with the `bcm43436b0` WiFi chipset found on the **Raspberry Pi Zero 2 W**.~~
+
+~~This is possible with [`/seemoo-lab/opendrop`](https://github.com/seemoo-lab/opendrop), [`/seemoo-lab/owl`](https://github.com/seemoo-lab/owl) and the [`/seemoo-lab/nexmon`](https://github.com/seemoo-lab/nexmon) patches to enable monitor mode on the WiFi chip, which is required for Airdrop. For a different Raspberry Pi model, check the supported devices section in the README of the [`/seemoo-lab/nexmon`](https://github.com/seemoo-lab/nexmon) repository.~~
 
 ## Findings
 
-Only Mac Computers (was tested running Sonoma 14.3.1) and certain older iOS devices (or older iOS versions?) are able to discover Raspberry Pi for Airdrop. You can read more about the issue [here](https://github.com/seemoo-lab/opendrop/issues/80).
+~~Only Mac Computers (was tested running Sonoma 14.3.1) and certain older iOS devices (or older iOS versions?) are able to discover Raspberry Pi for Airdrop. You can read more about the issue [here](https://github.com/seemoo-lab/opendrop/issues/80).~~
 
-I also extracted an Apple ID Validation Record, Certificate, and Key for AirDrop following this [guide](https://github.com/seemoo-lab/airdrop-keychain-extractor), to see if it would resolve the iOS issue. It did not fix the issue for newer iOS devices, however, it did clear an error I would occasionally see when trying to search for a newer iOS device about a bad certificate, but then caused another [error](https://github.com/seemoo-lab/opendrop/issues/114). It seems for the time being, these are the current limits of the Opendrop implementation.
+~~I also extracted an Apple ID Validation Record, Certificate, and Key for AirDrop following this [guide](https://github.com/seemoo-lab/airdrop-keychain-extractor), to see if it would resolve the iOS issue. It did not fix the issue for newer iOS devices, however, it did clear an error I would occasionally see when trying to search for a newer iOS device about a bad certificate, but then caused another [error](https://github.com/seemoo-lab/opendrop/issues/114). It seems for the time being, these are the current limits of the Opendrop implementation.~~
+
 ## Disclaimer
 Read the full disclaimers at [`/seemoo-lab/opendrop`](https://github.com/seemoo-lab/opendrop), [`/seemoo-lab/owl`](https://github.com/seemoo-lab/owl), and [`/seemoo-lab/nexmon`](https://github.com/seemoo-lab/nexmon). 
 
@@ -38,7 +41,7 @@ This project is not affiliated or endorsed by Apple Inc. Use this code at your o
     + After the system boots, login with the default username and password for kernel 5.10 `username:pi` `password:raspberry`. It is recommended to create a new password.
     + Then, run `sudo raspi-config`
     + In System Options, input your Wi-fi credentials (and turn on auto login).
-    + In Localisation Options, set the correct country for your keyboard layout, and then select "<Finish>" to reboot.
+    + In Localisation Options, set the correct country for your keyboard layout, and then select "Finish" to reboot.
 
 ### Installation Guide
 - First, install the proper kernel headers for kernel 5.10.63 (32bit). We **cannot** use `sudo apt install raspberrypi-kernel-headers` for this, as it will install the wrong version.
@@ -98,7 +101,7 @@ make install
 ln -s /usr/local/lib/libmpfr.so /usr/lib/arm-linux-gnueabihf/libmpfr.so.4
 cd ../../
 ```
-- Set up build enviornment for compiling the patches:
+- Set up build environment for compiling the patches:
 ```
 source setup_env.sh
 ```
@@ -225,7 +228,7 @@ sudo chown root:root airdrop.sh
 ```
 sudo bash airdrop.sh
 ```
-- You should now be able to receive a file through Airdrop from a Mac with its discovery set to *Everyone*.
+- You should now be able to receive a file through Airdrop from a Mac.
 - **Note:** You may have to close and open the Airdrop Finder window a few times before you see the Raspberry Pi discovered.
 - To restore the onboard Wi-fi and end the Airdrop session, reboot:
 ```
@@ -246,4 +249,4 @@ owl -i mon0 -N &
  - [seemoo-lab](https://github.com/seemoo-lab)
  - [owlink](https://owlink.org/code/)
  - [HinTak](https://github.com/HinTak/RaspberryPi-Dev)
- - And the community of people contibuting to forums online
+ - And the community of people contributing to forums online
